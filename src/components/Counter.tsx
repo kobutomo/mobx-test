@@ -1,25 +1,19 @@
 import React, { Fragment } from "react"
-import { Observer } from "mobx-react-lite"
-// import { useCounterStore, Store } from "../hooks/useCounterStore"
-import { counterStore1 } from "../store/Counter"
+import { Observer, observer } from "mobx-react-lite"
+import { useStore } from "../hooks/useStore"
 
 const Counter: React.FC = () => {
-  // const store = useCounterStore()
+  const store = useStore()
   return (
     <Fragment>
       <Observer>
         {() => (
-          <Fragment>
-            <p>{counterStore1.count}</p>
-          </Fragment>
+          <p>{store.counter}</p>
         )}
       </Observer>
       <button
-        onClick={(() => counterStore1.increment())}
-      >+</button>
-      <button
-        onClick={(() => counterStore1.decrement())}
-      >-</button>
+        onClick={(() => store.increment())}
+      ></button>
     </Fragment>
   )
 }
