@@ -1,9 +1,11 @@
 import React, { Fragment } from "react"
 import { Observer, observer } from "mobx-react-lite"
 import { useStore } from "../hooks/useStore"
+import useIncrement from "../hooks/useIncrement"
 
 const Counter: React.FC = () => {
   const store = useStore()
+  const increment = useIncrement()
   return (
     <Fragment>
       <Observer>
@@ -12,8 +14,11 @@ const Counter: React.FC = () => {
         )}
       </Observer>
       <button
-        onClick={(() => store.increment())}
-      ></button>
+        onClick={(() => increment())}
+      >+</button>
+      <button
+        onClick={(() => store.decrement())}
+      >-</button>
     </Fragment>
   )
 }

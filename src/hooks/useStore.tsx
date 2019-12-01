@@ -2,25 +2,26 @@ import React from "react"
 import { useLocalStore } from 'mobx-react-lite'
 import { action } from 'mobx'
 
-export type Store = {
-  counter: number
-  increment: () => void
-  decrement: () => void
-}
-const storeContext = React.createContext<Store | null>(null)
-
-export const StoreProvider: React.FC = ({ children }) => {
-  const store: Store = useLocalStore(() => {
+const useCreateStore = () => {
+  const store = useLocalStore(() => {
     return {
       counter: 0,
       increment: action(() => {
         store.counter++
       }),
       decrement: action(() => {
-        store.counter++
+        store.counter--
       })
     }
   })
+  return store
+}
+export type Store = ReturnType<typeof useCreateStore>
+
+const storeContext = React.createContext<Store | null>(null)
+
+export const StoreProvider: React.FC = ({ children }) => {
+  const store = useCreateStore()
   return <storeContext.Provider value={store}>{children}</storeContext.Provider>
 }
 
