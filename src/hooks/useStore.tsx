@@ -6,11 +6,15 @@ const useCreateStore = () => {
   const store = useLocalStore(() => {
     return {
       counter: 0,
+      name: "Tomoro",
       increment: action(() => {
         store.counter++
       }),
       decrement: action(() => {
         store.counter--
+      }),
+      setName: action((newName: string) => {
+        store.name = newName
       })
     }
   })
